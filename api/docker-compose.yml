@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  bookingapp:
+    image: bookingapp
+    depends_on:
+      - mongodb
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+  
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INIT_ROOT_USERNANE: mongouser
+      MONGO_INIT_ROOT_PASSWORD: password
+    ports:
+      - 27037:27037
